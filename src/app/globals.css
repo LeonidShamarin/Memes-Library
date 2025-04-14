@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 245, 245, 245;
+}
+
+.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 15, 23, 42;
+}
+
 body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-rgb));
   @apply antialiased;
 }
 
@@ -19,5 +31,13 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+/* Line clamp fallback for browsers that don't support the tailwind class */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 

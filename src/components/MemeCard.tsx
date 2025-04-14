@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, Image } from '@heroui/react';
+import { Card, Image, Badge } from '@heroui/react';
 import { Meme } from '../types';
 
 interface MemeCardProps {
@@ -9,24 +9,23 @@ interface MemeCardProps {
 
 export default function MemeCard({ meme }: MemeCardProps) {
   return (
-    <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
-      <div className="aspect-w-16 aspect-h-9">
+    <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
+      <div className="relative">
         <Image 
           src={meme.imageUrl}
           alt={meme.name}
-          className="w-full h-64 object-cover"
+          className="w-full h-48 object-cover"
           onError={(e) => {
             // Fallback на випадок якщо зображення не завантажилось
             e.currentTarget.src = "https://placehold.co/600x400?text=Мем+зображення";
           }}
         />
-      </div>
-      <Card.Body className="p-4">
-        <h3 className="text-lg font-medium text-gray-900 mb-2">{meme.name}</h3>
-        <div className="flex items-center text-sm text-gray-500 mb-3">
+        <Badge 
+          className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full flex items-center text-xs"
+        >
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            className="h-5 w-5 mr-1 text-red-500" 
+            className="h-3 w-3 mr-1" 
             viewBox="0 0 20 20" 
             fill="currentColor"
           >
@@ -36,18 +35,37 @@ export default function MemeCard({ meme }: MemeCardProps) {
               clipRule="evenodd" 
             />
           </svg>
-          {meme.likes} лайків
+          {meme.likes}
+        </Badge>
+      </div>
+      <Card.Body className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-medium text-gray-900 line-clamp-1">{meme.name}</h3>
+          <span className="text-xs text-gray-500">ID: {meme.id}</span>
         </div>
         <a 
           href={meme.imageUrl} 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="text-blue-600 hover:text-blue-800 hover:underline text-sm"
+          className="text-blue-600 hover:text-blue-800 hover:underline text-sm inline-flex items-center"
         >
-          Переглянути зображення
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-4 w-4 mr-1" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+            />
+          </svg>
+          Відкрити зображення
         </a>
       </Card.Body>
     </Card>
   );
 }
-
