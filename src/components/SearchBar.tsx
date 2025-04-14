@@ -20,7 +20,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     <div className="mb-4">
       <Input
         type="text"
-        placeholder="Пошук за назвою мема..."
+        placeholder="Search by meme name..."
         value={searchTerm}
         onChange={handleSearchChange}
         className="w-full md:w-64"

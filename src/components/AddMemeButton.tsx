@@ -28,11 +28,12 @@ export default function AddMemeButton() {
   return (
     <>
       <Button 
-        variant="primary" 
+        variant="solid" 
+        color="primary" 
         onClick={handleAddClick}
         className="mb-4"
       >
-        Додати новий мем
+        Add a New Meme
       </Button>
       
       <EditMemeModal

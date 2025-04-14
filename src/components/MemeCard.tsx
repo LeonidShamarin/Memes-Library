@@ -2,23 +2,27 @@
 
 import { Card, Image, Badge } from '@heroui/react';
 import { Meme } from '../types';
+import { useState } from 'react';
 
 interface MemeCardProps {
   meme: Meme;
 }
 
 export default function MemeCard({ meme }: MemeCardProps) {
+  const [imgSrc, setImgSrc] = useState(meme.imageUrl);
+  
+  const handleImageError = () => {
+    setImgSrc("https://placehold.co/600x400?text=Мем+зображення");
+  };
+
   return (
     <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
       <div className="relative">
         <Image 
-          src={meme.imageUrl}
+          src={imgSrc}
           alt={meme.name}
           className="w-full h-48 object-cover"
-          onError={(e) => {
-            // Fallback на випадок якщо зображення не завантажилось
-            e.currentTarget.src = "https://placehold.co/600x400?text=Мем+зображення";
-          }}
+          onError={handleImageError}
         />
         <Badge 
           className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full flex items-center text-xs"
@@ -38,7 +42,7 @@ export default function MemeCard({ meme }: MemeCardProps) {
           {meme.likes}
         </Badge>
       </div>
-      <Card.Body className="p-4">
+      <div className="p-4">
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-lg font-medium text-gray-900 line-clamp-1">{meme.name}</h3>
           <span className="text-xs text-gray-500">ID: {meme.id}</span>
@@ -63,9 +67,9 @@ export default function MemeCard({ meme }: MemeCardProps) {
               d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
             />
           </svg>
-          Відкрити зображення
+          Open Image
         </a>
-      </Card.Body>
+      </div>
     </Card>
   );
 }

@@ -7,7 +7,7 @@ export default function ThemeToggle() {
   const [darkMode, setDarkMode] = useState(false);
   
   useEffect(() => {
-    // Check if user has dark mode preference
+  
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(isDarkMode);
     
@@ -31,10 +31,10 @@ export default function ThemeToggle() {
   
   return (
     <Button 
-      variant="secondary" 
+      variant="bordered" 
       onClick={toggleDarkMode}
       className="rounded-full p-2"
-      aria-label="Перемкнути тему"
+      aria-label="Toggle theme"
     >
       {darkMode ? (
         <svg 
