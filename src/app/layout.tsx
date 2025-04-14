@@ -1,12 +1,10 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import './globals.css';
+import type { Metadata } from 'next';
+import Navigation from '../components/Navbar';
 
 export const metadata: Metadata = {
-  title: "Memes Library",
-  description: "Колекція найкращих мемів",
+  title: 'Довідник Мемів',
+  description: 'Популярні меми у таблиці та списком'
 };
 
 export default function RootLayout({
@@ -16,18 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="uk">
-      <body className={`${inter.className} bg-gray-50`}>
-        <div className="min-h-screen flex flex-col">
-    
-          <main className="flex-grow container mx-auto px-4 py-8">
-            {children}
-          </main>
-          <footer className="bg-gray-800 text-white py-6">
-            <div className="container mx-auto px-4 text-center">
-              <p>© {new Date().getFullYear()} Memes Library</p>
-            </div>
-          </footer>
-        </div>
+      <body className="bg-gray-50">
+        <Navigation />
+        <main>{children}</main>
       </body>
     </html>
   );

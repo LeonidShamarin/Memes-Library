@@ -2,32 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Кастомні базові стилі */
-@layer base {
-  body {
-    @apply antialiased text-gray-900;
-  }
-  
-  h1 {
-    @apply text-3xl font-bold mb-6;
-  }
-  
-  h2 {
-    @apply text-2xl font-semibold mb-4;
-  }
-  
-  a {
-    @apply text-blue-600 hover:text-blue-800 transition-colors;
-  }
+body {
+  @apply antialiased;
 }
 
-/* Кастомні компоненти */
-@layer components {
-  .btn-primary {
-    @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors;
-  }
-  
-  .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden;
-  }
+.aspect-w-16 {
+  position: relative;
+  padding-bottom: 56.25%;
 }
+
+.aspect-w-16 > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
