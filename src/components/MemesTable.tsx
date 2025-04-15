@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar";
 import { useMemesStorage } from "../hooks/useMemesStorage";
 
 export default function MemesTable() {
-  const { memes, updateMeme, deleteMeme, handleSearch, handleSort, isLoading } =
+  const { memes, updateMeme, deleteMeme, handleSearch, isLoading } =
     useMemesStorage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMeme, setSelectedMeme] = useState<Meme | null>(null);

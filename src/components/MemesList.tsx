@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 import AddMemeButton from "./AddMemeButton";
 
 export default function MemesList() {
-  const { memes, handleSearch, handleSort, isLoading } = useMemesStorage();
+  const { memes, handleSearch, isLoading } = useMemesStorage();
 
   if (isLoading) {
     return (
