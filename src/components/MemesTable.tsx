@@ -22,6 +22,7 @@ export default function MemesTable() {
 
   const handleSave = (updatedMeme: Meme) => {
     updateMeme(updatedMeme);
+    setIsModalOpen(false);
   };
 
   const handleDelete = (id: number) => {

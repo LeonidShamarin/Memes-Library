@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Modal, Button, Input } from "@heroui/react";
+import { Modal, Input, Button } from "@heroui/react";
 import { Meme } from "../types";
 
 interface EditMemeModalProps {
@@ -38,12 +38,7 @@ export default function EditMemeModal({
   const validateUrl = (url: string) => {
     try {
       new URL(url);
-      return (
-        url.endsWith(".jpg") ||
-        url.endsWith(".jpeg") ||
-        url.endsWith(".png") ||
-        url.endsWith(".gif")
-      );
+      return url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".gif");
     } catch (e) {
       return false;
     }
@@ -57,18 +52,13 @@ export default function EditMemeModal({
     };
     let isValid = true;
 
-    if (
-      !formData.name ||
-      formData.name.length < 3 ||
-      formData.name.length > 100
-    ) {
+    if (!formData.name || formData.name.length < 3 || formData.name.length > 100) {
       newErrors.name = "Name must be between 3 and 100 characters";
       isValid = false;
     }
 
     if (!formData.imageUrl || !validateUrl(formData.imageUrl)) {
-      newErrors.imageUrl =
-        "Please enter a valid image URL (jpg, jpeg, png or gif format)";
+      newErrors.imageUrl = "Please enter a valid image URL (jpg, jpeg, png or gif format)";
       isValid = false;
     }
 
@@ -99,19 +89,10 @@ export default function EditMemeModal({
     e.preventDefault();
     if (validateForm()) {
       onSave(formData);
-      onClose();
     }
   };
 
-  const handleClose = () => {
-    setErrors({
-      name: "",
-      imageUrl: "",
-      likes: "",
-    });
-    onClose();
-  };
-
+  // Preview image function
   const [previewSrc, setPreviewSrc] = useState("");
   const [previewError, setPreviewError] = useState(false);
 
@@ -131,24 +112,20 @@ export default function EditMemeModal({
   return (
     <Modal
       isOpen={isOpen}
-      onClose={handleClose}
-      size="lg"
-      backdrop="opaque"
-      className="z-50"
+      onClose={onClose}
+      className="fixed inset-0 flex items-center justify-center z-50"
+      // Removed the motionPreset prop as it's not supported
     >
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto overflow-hidden">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto" style={{ position: 'relative', zIndex: 9999 }}>
         <div className="bg-primary-600 p-4 text-white">
           <h2 className="text-xl font-bold">
             {meme && meme.id ? "Edit Meme" : "Add New Meme"}
           </h2>
         </div>
-
+        
         <form onSubmit={handleSubmit} className="p-6">
           <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="name" className="block font-medium text-gray-700 mb-1">
               Name
             </label>
             <Input
@@ -157,6 +134,7 @@ export default function EditMemeModal({
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter meme name"
+              className="w-full"
             />
             {errors.name && (
               <div className="mt-1 text-sm text-danger-500">{errors.name}</div>
@@ -164,10 +142,7 @@ export default function EditMemeModal({
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="imageUrl"
-              className="block font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="imageUrl" className="block font-medium text-gray-700 mb-1">
               Image URL
             </label>
             <Input
@@ -176,14 +151,14 @@ export default function EditMemeModal({
               value={formData.imageUrl}
               onChange={handleChange}
               placeholder="Enter image URL (jpg, jpeg, png, gif)"
+              className="w-full"
             />
             {errors.imageUrl && (
-              <div className="mt-1 text-sm text-danger-500">
-                {errors.imageUrl}
-              </div>
+              <div className="mt-1 text-sm text-danger-500">{errors.imageUrl}</div>
             )}
           </div>
 
+          {/* Image Preview */}
           {previewSrc && !previewError && (
             <div className="mb-4">
               <p className="text-sm text-gray-600 mb-1">Image Preview:</p>
@@ -205,10 +180,7 @@ export default function EditMemeModal({
           )}
 
           <div className="mb-6">
-            <label
-              htmlFor="likes"
-              className="block font-medium text-gray-700 mb-1"
-            >
+            <label htmlFor="likes" className="block font-medium text-gray-700 mb-1">
               Likes
             </label>
             <Input
@@ -220,6 +192,7 @@ export default function EditMemeModal({
               value={String(formData.likes)}
               onChange={handleChange}
               placeholder="Enter number of likes (0-99)"
+              className="w-full"
             />
             {errors.likes && (
               <div className="mt-1 text-sm text-danger-500">{errors.likes}</div>
@@ -230,7 +203,7 @@ export default function EditMemeModal({
             <Button
               variant="flat"
               color="danger"
-              onPress={handleClose}
+              onPress={onClose}
               className="px-4"
             >
               Cancel
