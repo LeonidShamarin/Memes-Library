@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Meme } from '../types';
-import { memeSchema } from '../utils/validators';
-import { 
-  Modal, 
-  ModalContent, 
-  ModalHeader, 
-  ModalBody, 
+import { useState, useEffect } from "react";
+import { Meme } from "../types";
+import { memeSchema } from "../utils/validators";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
   ModalFooter,
   Button,
-  Input
-} from '@heroui/react';
+  Input,
+} from "@heroui/react";
 
 interface EditMemeModalProps {
   isOpen: boolean;
@@ -20,7 +20,12 @@ interface EditMemeModalProps {
   onSave: (meme: Meme) => void;
 }
 
-export default function EditMemeModal({ isOpen, onClose, meme, onSave }: EditMemeModalProps) {
+export default function EditMemeModal({
+  isOpen,
+  onClose,
+  meme,
+  onSave,
+}: EditMemeModalProps) {
   const [formData, setFormData] = useState<Meme | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -32,18 +37,18 @@ export default function EditMemeModal({ isOpen, onClose, meme, onSave }: EditMem
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!formData) return;
-    
+
     const { name, value } = e.target;
     let parsedValue: string | number = value;
-    
-    if (name === 'likes') {
-      parsedValue = value === '' ? 0 : parseInt(value, 10);
+
+    if (name === "likes") {
+      parsedValue = value === "" ? 0 : parseInt(value, 10);
     }
-    
+
     setFormData({ ...formData, [name]: parsedValue });
-    
+
     if (errors[name]) {
-      setErrors({ ...errors, [name]: '' });
+      setErrors({ ...errors, [name]: "" });
     }
   };
 
@@ -82,42 +87,53 @@ export default function EditMemeModal({ isOpen, onClose, meme, onSave }: EditMem
         <ModalHeader>
           <h3 className="text-lg font-semibold">Edit Meme</h3>
         </ModalHeader>
-        
+
         <ModalBody>
           <div className="space-y-4">
             <div>
-              <label htmlFor="id" className="block text-sm font-medium mb-1">ID</label>
-              <Input
-                id="id"
-                value={formData.id.toString()}
-                disabled
-              />
+              <label htmlFor="id" className="block text-sm font-medium mb-1">
+                ID
+              </label>
+              <Input id="id" value={formData.id.toString()} disabled />
             </div>
-            
+
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
+              <label htmlFor="name" className="block text-sm font-medium mb-1">
+                Name
+              </label>
               <Input
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
               />
-              {errors.name && <p className="text-sm text-red-600 mt-1">{errors.name}</p>}
+              {errors.name && (
+                <p className="text-sm text-red-600 mt-1">{errors.name}</p>
+              )}
             </div>
-            
+
             <div>
-              <label htmlFor="imageUrl" className="block text-sm font-medium mb-1">Image URL</label>
+              <label
+                htmlFor="imageUrl"
+                className="block text-sm font-medium mb-1"
+              >
+                Image URL
+              </label>
               <Input
                 id="imageUrl"
                 name="imageUrl"
                 value={formData.imageUrl}
                 onChange={handleChange}
               />
-              {errors.imageUrl && <p className="text-sm text-red-600 mt-1">{errors.imageUrl}</p>}
+              {errors.imageUrl && (
+                <p className="text-sm text-red-600 mt-1">{errors.imageUrl}</p>
+              )}
             </div>
-            
+
             <div>
-              <label htmlFor="likes" className="block text-sm font-medium mb-1">Likes</label>
+              <label htmlFor="likes" className="block text-sm font-medium mb-1">
+                Likes
+              </label>
               <Input
                 type="number"
                 id="likes"
@@ -126,16 +142,18 @@ export default function EditMemeModal({ isOpen, onClose, meme, onSave }: EditMem
                 value={formData.likes.toString()}
                 onChange={handleChange}
               />
-              {errors.likes && <p className="text-sm text-red-600 mt-1">{errors.likes}</p>}
+              {errors.likes && (
+                <p className="text-sm text-red-600 mt-1">{errors.likes}</p>
+              )}
             </div>
           </div>
         </ModalBody>
-        
+
         <ModalFooter>
-          <Button variant="ghost" onClick={onClose}>
+          <Button variant="ghost" onPress={onClose}>
             Cancel
           </Button>
-          <Button variant="solid" color="primary" onClick={handleSubmit}>
+          <Button variant="solid" color="primary" onPress={handleSubmit}>
             Save
           </Button>
         </ModalFooter>
