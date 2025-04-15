@@ -24,7 +24,10 @@ export default function MemeCard({ meme }: MemeCardProps) {
           className="w-full h-48 object-cover"
           onError={handleImageError}
         />
-        <Badge className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full flex items-center text-xs">
+        <Badge
+          color="danger"
+          className="absolute top-2 right-2 px-2 py-1 rounded-full flex items-center text-xs"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-3 w-3 mr-1"

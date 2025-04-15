@@ -107,7 +107,7 @@ export default function MemesTable() {
                       <Button
                         variant="bordered"
                         size="sm"
-                        onClick={() => handleEditClick(meme)}
+                        onPress={() => handleEditClick(meme)}
                         className="text-sm"
                       >
                         Edit
@@ -116,7 +116,7 @@ export default function MemesTable() {
                         variant="flat"
                         color="danger"
                         size="sm"
-                        onClick={() => handleDelete(meme.id)}
+                        onPress={() => handleDelete(meme.id)}
                         className="text-sm"
                       >
                         Delete

@@ -16,6 +16,7 @@ export default function AddMemeButton() {
 
   const handleSave = (newMeme: Meme) => {
     updateMeme(newMeme);
+    setIsModalOpen(false); // Закриваємо модальне вікно після збереження
   };
 
   const emptyMeme: Meme = {
@@ -36,12 +37,14 @@ export default function AddMemeButton() {
         Add a New Meme
       </Button>
 
-      <EditMemeModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        meme={emptyMeme}
-        onSave={handleSave}
-      />
+      {isModalOpen && (
+        <EditMemeModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          meme={emptyMeme}
+          onSave={handleSave}
+        />
+      )}
     </>
   );
 }
